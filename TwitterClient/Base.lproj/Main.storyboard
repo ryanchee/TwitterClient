@@ -137,10 +137,10 @@
             </objects>
             <point key="canvasLocation" x="2469.5999999999999" y="136.28185907046478"/>
         </scene>
-        <!--View Controller-->
+        <!--Detail Tweet View Controller-->
         <scene sceneID="8iG-yg-q7l">
             <objects>
-                <viewController id="dxo-OG-WfN" sceneMemberID="viewController">
+                <viewController id="dxo-OG-WfN" customClass="DetailTweetViewController" customModule="TwitterClient" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7Ki-3P-atw"/>
                         <viewControllerLayoutGuide type="bottom" id="KMw-RT-J0A"/>
@@ -153,7 +153,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h7r-hD-uqF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2470" y="804"/>
+            <point key="canvasLocation" x="2470" y="893"/>
         </scene>
     </scenes>
 </document>
