@@ -72,8 +72,8 @@ class TwitterClient: BDBOAuth1SessionManager {
             let tweets = Tweet.tweetsWithArray(dictionaries: dictionaries)
             success(tweets)
             for tweet in tweets {
-                //print("\(tweet.text!)")
-                print("\(tweet.user)")
+                print("\(tweet.text!)")
+               // print("\(tweet.user)")
             }
         }) { (task: URLSessionDataTask?, error: Error) in
             print("error: \(error.localizedDescription)")

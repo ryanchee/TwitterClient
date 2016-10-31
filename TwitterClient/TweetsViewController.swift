@@ -12,19 +12,18 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     @IBOutlet var tweetsTableView: UITableView!
     var tweets: [Tweet]?
+    let refreshControl = UIRefreshControl()
     var retweetImage = UIImage(named: "retweetgray")
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //newTweetsVC.delegate = self
+        refreshControl.addTarget(self, action: "refreshTweets", for: UIControlEvents.valueChanged)
+        tweetsTableView.insertSubview(refreshControl, at: 0)
         tweetsTableView.delegate = self
         tweetsTableView.dataSource = self
         TwitterClient.sharedInstance.homeTimeLine(success: { (tweets: [Tweet]) in
             self.tweets = tweets
             self.tweetsTableView.reloadData()
-            for tweet in tweets {
-                print(tweet.text)
-            }
         }) { (error: Error) in
                 print(error.localizedDescription)
         }
@@ -67,6 +66,22 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return tweets?.count ?? 0
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tweetsTableView.deselectRow(at: indexPath, animated: true)
+        self.performSegue(withIdentifier: "detailTweetSegue", sender: tweetsTableView.cellForRow(at: indexPath))
+    }
+    
+    func refreshTweets() {
+        print("refreshTweets")
+        TwitterClient.sharedInstance.homeTimeLine(success: { (tweets: [Tweet]) in
+            self.tweets = tweets
+            self.tweetsTableView.reloadData()
+            self.refreshControl.endRefreshing()
+        }) { (error: Error) in
+            print(error.localizedDescription)
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "newTweetSegue" {
             let destinationVC = segue.destination as! UINavigationController
@@ -74,6 +89,20 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             newTweetsVC.profileImageURL = User.currentUser?.profileURL
             newTweetsVC.name = User.currentUser?.screenname
             newTweetsVC.username = User.currentUser?.name
+        } else if segue.identifier == "detailTweetSegue" {
+            print("in hjere")
+            let detailVC = segue.destination as! DetailTweetViewController
+            if let index = tweetsTableView.indexPath(for: sender as! TweetCell) {
+                if let cell = tweetsTableView.cellForRow(at: index) as? TweetCell {
+                    detailVC.imageURL = tweets?[index.row].user?.profileURL
+                    detailVC.numFavorites = tweets?[index.row].favoriteCount
+                    detailVC.numRetweets = tweets?[index.row].retweetCount
+                    detailVC.profileName = tweets?[index.row].user?.screenname
+                    detailVC.profileUserName = tweets?[index.row].user?.name
+                    //detailVC.tweetDateString = tweets?[index.row].timestamp
+                    detailVC.tweetString = tweets?[index.row].text
+                }
+            }
         }
     }
 
