@@ -72,7 +72,8 @@ class TwitterClient: BDBOAuth1SessionManager {
             let tweets = Tweet.tweetsWithArray(dictionaries: dictionaries)
             success(tweets)
             for tweet in tweets {
-                print("\(tweet.text!)")
+                //print("\(tweet.text!)")
+                print("\(tweet.user)")
             }
         }) { (task: URLSessionDataTask?, error: Error) in
             print("error: \(error.localizedDescription)")
@@ -96,5 +97,31 @@ class TwitterClient: BDBOAuth1SessionManager {
 //                print("failed: \(error.localizedDescription)")
                 failure(error)
         })
+    }
+    
+    func postTweet(tweet: String, success: @escaping () -> ()?, failure: @escaping (Error?) -> ()?){
+
+        if(tweet.characters.count > 140 || tweet.characters.count == 0){
+            failure(nil)
+            return
+        }
+        var params = Dictionary<String, Any>()
+        params["status"] = tweet
+        
+        post("1.1/statuses/update.json",
+                    parameters: params,
+                    progress: { (progress: Progress) in
+                        print("--- progress in posting  tweet")
+            },
+                    success: { (dataTask: URLSessionDataTask, response: Any?) in
+                        print("--- SUCCESS in posting tweet")
+                        success()
+            },
+                    failure: { (dataTask: URLSessionDataTask?, error: Error) in
+                        print("--- FAIL in posting tweet")
+                        failure(error)
+            }
+        )
+        
     }
 }

@@ -8,14 +8,20 @@
 
 import UIKit
 
-class TweetsViewController: UIViewController {
+class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
 
+    @IBOutlet var tweetsTableView: UITableView!
     var tweets: [Tweet]?
+    var retweetImage = UIImage(named: "retweetgray")
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //newTweetsVC.delegate = self
+        tweetsTableView.delegate = self
+        tweetsTableView.dataSource = self
         TwitterClient.sharedInstance.homeTimeLine(success: { (tweets: [Tweet]) in
             self.tweets = tweets
+            self.tweetsTableView.reloadData()
             for tweet in tweets {
                 print(tweet.text)
             }
@@ -27,6 +33,52 @@ class TweetsViewController: UIViewController {
 
     @IBAction func onLogoutButton(_ sender: AnyObject) {
         TwitterClient.sharedInstance.logout()
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tweetsTableView.dequeueReusableCell(withIdentifier: "tweetCell", for: indexPath) as! TweetCell
+        if let tweet = tweets?[indexPath.row] {
+            if tweet.retweeted == true {
+                cell.retweetLabel.text = "\((tweet.user?.name)!) retweeted"
+                cell.retweetImage.isHidden = false
+                cell.retweetLabel.isHidden = false
+            } else {
+                cell.retweetImage.isHidden = true
+                cell.retweetLabel.isHidden = true
+            }
+            cell.retweetImage.image = retweetImage
+            if let profileImage = tweet.user?.profileURL {
+                cell.twitterProfileImage.setImageWith(profileImage)
+            }
+            print(tweet.user?.screenname)
+            cell.twitterName.text = tweet.user?.screenname
+            cell.twitterUserName.text = "@" + (tweet.user?.name)!
+//            cell.retweetButton.imageView?.contentMode = UIViewContentMode.scaleAspectFit
+//            cell.retweetButton.setImage(retweetImage, for: .normal)
+            //print("\((tweet.timestamp?.timeIntervalSinceNow))")
+            //cell.hoursLabel.text = "\(tweet.timestamp?.timeIntervalSinceNow)"
+            cell.tweetText.text = tweet.text
+        }
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("tweets count: \(tweets?.count)")
+        return tweets?.count ?? 0
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "newTweetSegue" {
+            let destinationVC = segue.destination as! UINavigationController
+            let newTweetsVC = destinationVC.viewControllers[0] as! NewTweetViewController
+            newTweetsVC.profileImageURL = User.currentUser?.profileURL
+            newTweetsVC.name = User.currentUser?.screenname
+            newTweetsVC.username = User.currentUser?.name
+        }
+    }
+
+    @IBAction func newTweetTapped(_ sender: AnyObject) {
+        self.performSegue(withIdentifier: "newTweetSegue", sender: self)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
