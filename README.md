@@ -22,7 +22,7 @@ The following **optional** features are implemented:
 - [ ] After creating a new tweet, a user should be able to view it in the timeline immediately without refetching the timeline from the network.
 - [X] Retweeting and favoriting should increment the retweet and favorite count.
 - [ ] User should be able to unretweet and unfavorite and should decrement the retweet and favorite count.
-- [ ] Replies should be prefixed with the username and the reply_id should be set when posting the tweet,
+- [X] Replies should be prefixed with the username and the reply_id should be set when posting the tweet,
 - [ ] User can load more tweets once they reach the bottom of the feed using infinite loading similar to the actual Twitter client.
 
 The following **additional** features are implemented:
@@ -38,7 +38,7 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-<img alt="TwitterClone" src="https://imgur.com/yCo785X.gif" style="max-width: 100%;
+<img alt="TwitterClone" src="https://imgur.com/3m0jVBm.gif" style="max-width: 100%;
 min-height: 686px;" original-title=""/>
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
