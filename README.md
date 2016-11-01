@@ -31,8 +31,7 @@ The following **additional** features are implemented:
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1. 
-2.
+1. Animations/Gestures
 
 ## Video Walkthrough
 
@@ -46,7 +45,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 ## Notes
 
 Describe any challenges encountered while building the app.
-- 1. I was out of town for the weekend for personal reasons and did not get started until Sunday afternoon. I am going to put in the hours for project 4 and plan to improve my score drastically (Aiming for top 10).
+- I had to leave town this weekend for personal unforseen reasons. As a result, I did not get started until Sunday afternoon and needed the 24 hour extension. I am going to put in the hours for project 4 and plan to improve my score drastically (Aiming for top 10).
 ## License
 
     Copyright [2016] [Ryan Chee]
