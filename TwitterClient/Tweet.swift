@@ -47,7 +47,7 @@ class Tweet: NSObject {
     
     func dateToString() -> String {
         let dateformatter = DateFormatter()
-        dateformatter.dateFormat = "MM/dd/yy h:mm a"
+        dateformatter.dateFormat = "MM/dd/yy"// h:mm a"
         let dateString = dateformatter.string(from: timestamp!)
         return dateString
     }

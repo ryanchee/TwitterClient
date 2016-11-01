@@ -21,6 +21,9 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tweetsTableView.insertSubview(refreshControl, at: 0)
         tweetsTableView.delegate = self
         tweetsTableView.dataSource = self
+        self.tweetsTableView.estimatedRowHeight = 100
+        self.tweetsTableView.rowHeight = UITableViewAutomaticDimension
+
         TwitterClient.sharedInstance.homeTimeLine(success: { (tweets: [Tweet]) in
             self.tweets = tweets
             self.tweetsTableView.reloadData()
@@ -38,26 +41,23 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let cell = tweetsTableView.dequeueReusableCell(withIdentifier: "tweetCell", for: indexPath) as! TweetCell
         if let tweet = tweets?[indexPath.row] {
             if tweet.retweeted == true {
-                cell.retweetLabel.text = "\((tweet.user?.name)!) retweeted"
+                cell.retweetLabel.text = "\((User.currentUser?.name)!) retweeted"
+                cell.retweetImage.image = retweetImage
                 cell.retweetImage.isHidden = false
                 cell.retweetLabel.isHidden = false
             } else {
-                cell.retweetImage.isHidden = true
-                cell.retweetLabel.isHidden = true
+                cell.retweetLabel.text = "                   "
+                cell.retweetImage.image = UIImage()
             }
-            cell.retweetImage.image = retweetImage
             if let profileImage = tweet.user?.profileURL {
                 cell.twitterProfileImage.setImageWith(profileImage)
             }
             print(tweet.user?.screenname)
             cell.twitterName.text = tweet.user?.screenname
             cell.twitterUserName.text = "@" + (tweet.user?.name)!
+            //change retweet, reply, favorite to images, check if set, change image to right color.
 //            cell.retweetButton.imageView?.contentMode = UIViewContentMode.scaleAspectFit
 //            cell.retweetButton.setImage(retweetImage, for: .normal)
-            //print("\((tweet.timestamp?.timeIntervalSinceNow))")
-//            let dateformatter = DateFormatter()
-//            dateformatter.dateFormat = "EEEE MMMM dd, yyyy 'at' h:mm a zz"
-//            let now = dateformatter.string(from: NSDate() as Date)
             cell.hoursLabel.text = tweet.dateToString()
             print(cell.hoursLabel.text!)
             cell.tweetText.text = tweet.text

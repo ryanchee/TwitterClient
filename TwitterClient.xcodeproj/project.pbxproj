@@ -21,6 +21,11 @@
 		9BCFCE001DC6A84D00CE79B7 /* DetailTweetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BCFCDFF1DC6A84D00CE79B7 /* DetailTweetViewController.swift */; };
 		9BCFCE031DC6BDA600CE79B7 /* TweetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BCFCE021DC6BDA600CE79B7 /* TweetCell.swift */; };
 		9BCFCE081DC6D6F500CE79B7 /* retweetgray.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BCFCE071DC6D6F500CE79B7 /* retweetgray.png */; };
+		9BCFCE2E1DC8687200CE79B7 /* goldstar.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BCFCE291DC8687200CE79B7 /* goldstar.png */; };
+		9BCFCE2F1DC8687200CE79B7 /* greenretweet.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BCFCE2A1DC8687200CE79B7 /* greenretweet.png */; };
+		9BCFCE301DC8687200CE79B7 /* greyreply.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BCFCE2B1DC8687200CE79B7 /* greyreply.png */; };
+		9BCFCE311DC8687200CE79B7 /* greystar.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BCFCE2C1DC8687200CE79B7 /* greystar.png */; };
+		9BCFCE321DC8687200CE79B7 /* redreply.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BCFCE2D1DC8687200CE79B7 /* redreply.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +47,11 @@
 		9BCFCE021DC6BDA600CE79B7 /* TweetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetCell.swift; sourceTree = "<group>"; };
 		9BCFCE041DC6C98E00CE79B7 /* TwitterClient.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TwitterClient.entitlements; sourceTree = "<group>"; };
 		9BCFCE071DC6D6F500CE79B7 /* retweetgray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = retweetgray.png; sourceTree = "<group>"; };
+		9BCFCE291DC8687200CE79B7 /* goldstar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = goldstar.png; sourceTree = "<group>"; };
+		9BCFCE2A1DC8687200CE79B7 /* greenretweet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenretweet.png; sourceTree = "<group>"; };
+		9BCFCE2B1DC8687200CE79B7 /* greyreply.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greyreply.png; sourceTree = "<group>"; };
+		9BCFCE2C1DC8687200CE79B7 /* greystar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greystar.png; sourceTree = "<group>"; };
+		9BCFCE2D1DC8687200CE79B7 /* redreply.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redreply.png; sourceTree = "<group>"; };
 		C43988265CBC52B5AC450133 /* Pods_TwitterClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwitterClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -96,6 +106,11 @@
 				9B2639F81DC0528C0009340E /* Main.storyboard */,
 				9B2639FB1DC0528C0009340E /* Assets.xcassets */,
 				9BCFCE071DC6D6F500CE79B7 /* retweetgray.png */,
+				9BCFCE291DC8687200CE79B7 /* goldstar.png */,
+				9BCFCE2A1DC8687200CE79B7 /* greenretweet.png */,
+				9BCFCE2B1DC8687200CE79B7 /* greyreply.png */,
+				9BCFCE2C1DC8687200CE79B7 /* greystar.png */,
+				9BCFCE2D1DC8687200CE79B7 /* redreply.png */,
 				9B2639FD1DC0528C0009340E /* LaunchScreen.storyboard */,
 				9B263A001DC0528C0009340E /* Info.plist */,
 			);
@@ -214,9 +229,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BCFCE311DC8687200CE79B7 /* greystar.png in Resources */,
 				9B2639FF1DC0528C0009340E /* LaunchScreen.storyboard in Resources */,
+				9BCFCE2E1DC8687200CE79B7 /* goldstar.png in Resources */,
 				9BCFCE081DC6D6F500CE79B7 /* retweetgray.png in Resources */,
+				9BCFCE301DC8687200CE79B7 /* greyreply.png in Resources */,
+				9BCFCE321DC8687200CE79B7 /* redreply.png in Resources */,
 				9B2639FC1DC0528C0009340E /* Assets.xcassets in Resources */,
+				9BCFCE2F1DC8687200CE79B7 /* greenretweet.png in Resources */,
 				9B2639FA1DC0528C0009340E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

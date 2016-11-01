@@ -30,7 +30,6 @@ class DetailTweetViewController: UIViewController {
     
     @IBAction func reply(_ sender: AnyObject) {
         performSegue(withIdentifier: "replySegue", sender: nil)
-        //moda;;y present vc and then call reply tweet after adding "@original poster "
     }
     
     @IBAction func retweet(_ sender: AnyObject) {
