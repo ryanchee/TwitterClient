@@ -17,6 +17,10 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.barStyle = UIBarStyle.black 
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 0/255, green: 152/255, blue: 237/255, alpha: 1)
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.topItem?.title = "Home"
         refreshControl.addTarget(self, action: "refreshTweets", for: UIControlEvents.valueChanged)
         tweetsTableView.insertSubview(refreshControl, at: 0)
         tweetsTableView.delegate = self
@@ -92,7 +96,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let newTweetsVC = destinationVC.viewControllers[0] as! NewTweetViewController
             newTweetsVC.profileImageURL = User.currentUser?.profileURL
             newTweetsVC.name = User.currentUser?.screenname
-            newTweetsVC.username = User.currentUser?.name
+            newTweetsVC.username = "@\((User.currentUser?.name!)!)"
         } else if segue.identifier == "detailTweetSegue" {
             print("in hjere")
             let detailVC = segue.destination as! DetailTweetViewController

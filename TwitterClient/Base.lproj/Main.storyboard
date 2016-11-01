@@ -44,7 +44,7 @@
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="137.18140929535232"/>
         </scene>
-        <!--Home-->
+        <!--Tweets View Controller-->
         <scene sceneID="12i-ii-gH6">
             <objects>
                 <viewController id="mus-0K-pQa" customClass="TweetsViewController" customModule="TwitterClient" customModuleProvider="target" sceneMemberID="viewController">
@@ -181,13 +181,15 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Home" id="W03-Vo-tg3">
+                    <navigationItem key="navigationItem" id="W03-Vo-tg3">
                         <barButtonItem key="leftBarButtonItem" title="Logout" id="qmi-iq-s7f">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="onLogoutButton:" destination="mus-0K-pQa" id="ft6-a7-p5S"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="New" id="pwc-3n-h5q">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="newTweetTapped:" destination="mus-0K-pQa" id="QOn-Nr-U09"/>
                             </connections>
@@ -258,11 +260,13 @@
                     </view>
                     <navigationItem key="navigationItem" id="jee-6x-RHl">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="CUA-Hj-aSZ">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="cancelTapped:" destination="bLY-5u-hrH" id="zPU-5T-DYK"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Tweet" id="V0s-SJ-7Y2">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="newTweetTapped:" destination="bLY-5u-hrH" id="0ji-Gs-dVE"/>
                             </connections>
@@ -450,6 +454,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="CXC-ln-fEc"/>
+        <segue reference="XGP-7C-Jxn"/>
     </inferredMetricsTieBreakers>
 </document>

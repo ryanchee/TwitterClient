@@ -36,6 +36,8 @@ class DetailTweetViewController: UIViewController {
         client.retweetTweet(id: idString!, success: {
             //animate retweet to colored
             print("retweeted!")
+            self.numRetweets = self.numRetweets! + 1
+            self.viewDidLoad()
         }) { (error: Error) in
             print(error.localizedDescription)
         }
@@ -44,6 +46,8 @@ class DetailTweetViewController: UIViewController {
     @IBAction func favorite(_ sender: AnyObject) {
         client.favoriteTweet(id: idString!, success: { 
             //animate star to colored
+            self.numFavorites = self.numFavorites! + 1
+            self.viewDidLoad()
         }) { (error: Error) in
                 print(error.localizedDescription)
         }
@@ -51,6 +55,7 @@ class DetailTweetViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.barTintColor = UIColor(red: 0/255, green: 152/255, blue: 237/255, alpha: 1)
         if let url = imageURL {
             tweetProfileImage.setImageWith(url)
         }
