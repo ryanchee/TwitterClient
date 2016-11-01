@@ -94,9 +94,55 @@ class TwitterClient: BDBOAuth1SessionManager {
 //            print("profileURL: \(user.profileURL)")
 //            print("description: \(user.tagline)")
             }, failure: { (task: URLSessionDataTask?, error: Error) in
-//                print("failed: \(error.localizedDescription)")
                 failure(error)
         })
+    }
+    
+    func replyTweet(status: String, id: String, success: @escaping () -> (), failure: @escaping (Error) -> ()) {
+        var params = Dictionary<String, Any>()
+        params["status"] = status
+        params["in_reply_to_status_id"] = id
+        
+        post("1.1/statuses/update.json?status=", parameters: params, progress: { (progress: Progress) in
+            print("--- progress in replying  tweet")
+            }, success: { (dataTask: URLSessionDataTask, response: Any?) in
+                print("--- SUCCESS in replying tweet")
+                success()
+        }) { (dataTask: URLSessionDataTask?, error: Error) in
+            print("--- FAIL in replying tweet")
+            failure(error)
+        }
+    }
+    
+    func retweetTweet(id: String, success: @escaping () -> (), failure: @escaping (Error) -> ()) {
+        var params = Dictionary<String, Any>()
+        params["id"] = id
+
+        post("1.1/statuses/retweet.json?id=", parameters: params, progress: { (progress: Progress) in
+            print("--- progress in retweeting  tweet")
+            }, success: { (dataTask: URLSessionDataTask, response: Any?) in
+                print("--- SUCCESS in retweeting tweet")
+                success()
+        }) { (dataTask: URLSessionDataTask?, error: Error) in
+            print("--- FAIL in retweeting tweet")
+            failure(error)
+        }
+    }
+    
+    func favoriteTweet(id: String, success: @escaping () -> (), failure: @escaping (Error) -> ()) {
+        
+        var params = Dictionary<String, Any>()
+        params["id"] = id
+        
+        post("1.1/favorites/create.json?id=", parameters: params, progress: { (progress: Progress) in
+            print("--- progress in favoriting  tweet")
+            }, success: { (dataTask: URLSessionDataTask, response: Any?) in
+                print("--- SUCCESS in favoriting tweet")
+                success()
+        }) { (dataTask: URLSessionDataTask?, error: Error) in
+                print("--- FAIL in favoriting tweet")
+                failure(error)
+        }
     }
     
     func postTweet(tweet: String, success: @escaping () -> ()?, failure: @escaping (Error?) -> ()?){

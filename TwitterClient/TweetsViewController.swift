@@ -55,7 +55,11 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
 //            cell.retweetButton.imageView?.contentMode = UIViewContentMode.scaleAspectFit
 //            cell.retweetButton.setImage(retweetImage, for: .normal)
             //print("\((tweet.timestamp?.timeIntervalSinceNow))")
-            //cell.hoursLabel.text = "\(tweet.timestamp?.timeIntervalSinceNow)"
+//            let dateformatter = DateFormatter()
+//            dateformatter.dateFormat = "EEEE MMMM dd, yyyy 'at' h:mm a zz"
+//            let now = dateformatter.string(from: NSDate() as Date)
+            cell.hoursLabel.text = tweet.dateToString()
+            print(cell.hoursLabel.text!)
             cell.tweetText.text = tweet.text
         }
         return cell
@@ -93,14 +97,15 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             print("in hjere")
             let detailVC = segue.destination as! DetailTweetViewController
             if let index = tweetsTableView.indexPath(for: sender as! TweetCell) {
-                if let cell = tweetsTableView.cellForRow(at: index) as? TweetCell {
-                    detailVC.imageURL = tweets?[index.row].user?.profileURL
-                    detailVC.numFavorites = tweets?[index.row].favoriteCount
-                    detailVC.numRetweets = tweets?[index.row].retweetCount
-                    detailVC.profileName = tweets?[index.row].user?.screenname
-                    detailVC.profileUserName = tweets?[index.row].user?.name
-                    //detailVC.tweetDateString = tweets?[index.row].timestamp
-                    detailVC.tweetString = tweets?[index.row].text
+                if let tweet = tweets?[index.row] {
+                    detailVC.imageURL = tweet.user?.profileURL
+                    detailVC.numFavorites = tweet.favoriteCount
+                    detailVC.numRetweets = tweet.retweetCount
+                    detailVC.profileName = tweet.user?.screenname
+                    detailVC.profileUserName = tweet.user?.name
+                    detailVC.idString = tweet.id
+                    detailVC.tweetDateString = tweet.dateToDetailedString()
+                    detailVC.tweetString = tweet.text
                 }
             }
         }

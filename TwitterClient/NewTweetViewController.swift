@@ -19,6 +19,8 @@ class NewTweetViewController: UIViewController, UITextViewDelegate{
     var profileImageURL: URL?
     var name: String?
     var username: String?
+    var reply: String = ""
+    var id:String = ""
 
     
     override func viewDidLoad() {
@@ -29,6 +31,9 @@ class NewTweetViewController: UIViewController, UITextViewDelegate{
         }
         nameLabel.text = name
         usernameLabel.text = username
+        if reply != "" {
+            textView.text = reply
+        }
     }
     
     
@@ -39,11 +44,21 @@ class NewTweetViewController: UIViewController, UITextViewDelegate{
     
     @IBAction func newTweetTapped(_ sender: AnyObject) {
         let client = TwitterClient.sharedInstance
-        client.postTweet(tweet: textView.text, success: { () -> ()? in
-            self.dismiss(animated: true, completion: nil)
-            //performSegue(withIdentifier: "tweetPostedSegue", sender: nil)
-        }) { (error: Error?) -> ()? in
-                print(error?.localizedDescription)
+        if reply != "" && id != "" {
+            client.replyTweet(status: textView.text, id: id, success: {
+                self.dismiss(animated: true, completion: nil)
+                }, failure: { (error: Error) in
+                    print(error.localizedDescription)
+                    self.dismiss(animated: true, completion: nil)
+            })
+        } else {
+            let client = TwitterClient.sharedInstance
+            client.postTweet(tweet: textView.text, success: { () -> ()? in
+                self.dismiss(animated: true, completion: nil)
+                //performSegue(withIdentifier: "tweetPostedSegue", sender: nil)
+            }) { (error: Error?) -> ()? in
+                    print(error?.localizedDescription)
+            }
         }
     }
     

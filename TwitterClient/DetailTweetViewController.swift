@@ -25,14 +25,29 @@ class DetailTweetViewController: UIViewController {
     var tweetDateString: String?
     var numRetweets: Int?
     var numFavorites: Int?
+    var idString: String?
+    let client = TwitterClient.sharedInstance
     
     @IBAction func reply(_ sender: AnyObject) {
+        performSegue(withIdentifier: "replySegue", sender: nil)
+        //moda;;y present vc and then call reply tweet after adding "@original poster "
     }
     
     @IBAction func retweet(_ sender: AnyObject) {
+        client.retweetTweet(id: idString!, success: {
+            //animate retweet to colored
+            print("retweeted!")
+        }) { (error: Error) in
+            print(error.localizedDescription)
+        }
     }
     
     @IBAction func favorite(_ sender: AnyObject) {
+        client.favoriteTweet(id: idString!, success: { 
+            //animate star to colored
+        }) { (error: Error) in
+                print(error.localizedDescription)
+        }
     }
     
     override func viewDidLoad() {
@@ -47,6 +62,18 @@ class DetailTweetViewController: UIViewController {
         tweetRetweets.text = "\(numRetweets!)"
         tweetFavorites.text = "\(numFavorites!)"
         // Do any additional setup after loading the view.
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "replySegue" {
+            let destinationVC = segue.destination as! UINavigationController
+            let newTweetsVC = destinationVC.viewControllers[0] as! NewTweetViewController
+            newTweetsVC.profileImageURL = imageURL
+            newTweetsVC.name = profileName
+            newTweetsVC.username = profileUserName
+            newTweetsVC.reply = "@\(profileUserName!) "
+            newTweetsVC.id = idString!
+        }
     }
 
     override func didReceiveMemoryWarning() {
