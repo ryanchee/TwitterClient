@@ -19,14 +19,13 @@ class Tweet: NSObject {
     var user: User?
     
     init(dictionary: NSDictionary) {
-        print("\(dictionary)")
+//        print("\(dictionary)")
         user = User(dictionary: (dictionary["user"] as? NSDictionary)!)
         text = dictionary["text"] as? String
         retweetCount = (dictionary["retweet_count"] as? Int) ?? 0
         let retweetedStatus = dictionary["retweeted_status"] as? NSDictionary
         favoriteCount = (retweetedStatus?["favorite_count"] as? Int) ?? 0
         id = dictionary["id_str"] as? String
-        print("\(id)")
         retweeted = (dictionary["retweeted"] as? Bool)!
         
         let timeStampString = dictionary["created_at"] as? String

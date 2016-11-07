@@ -14,6 +14,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var tweets: [Tweet]?
     let refreshControl = UIRefreshControl()
     var retweetImage = UIImage(named: "retweetgray")
+    var userToLoad:String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,14 +45,20 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tweetsTableView.dequeueReusableCell(withIdentifier: "tweetCell", for: indexPath) as! TweetCell
         if let tweet = tweets?[indexPath.row] {
+//            cell.twitterProfileImage.isUserInteractionEnabled = true
+            //UITapGestureRecognizer(target: , action: <#T##Selector?#>)
+            cell.twitterProfileImage.addGestureRecognizer(UIGestureRecognizer(target: self, action: "imageTapped"))
+            cell.twitterProfileImage.tag = indexPath.row
             if tweet.retweeted == true {
                 cell.retweetLabel.text = "\((User.currentUser?.name)!) retweeted"
                 cell.retweetImage.image = retweetImage
                 cell.retweetImage.isHidden = false
                 cell.retweetLabel.isHidden = false
             } else {
-                cell.retweetLabel.text = "                   "
-                cell.retweetImage.image = UIImage()
+//                cell.retweetLabel.text = "                   "
+//                cell.retweetImage.image = UIImage()
+                cell.retweetImage.isHidden = true
+                cell.retweetLabel.isHidden = true
             }
             if let profileImage = tweet.user?.profileURL {
                 cell.twitterProfileImage.setImageWith(profileImage)
@@ -61,16 +68,14 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             cell.twitterUserName.text = "@" + (tweet.user?.name)!
             //change retweet, reply, favorite to images, check if set, change image to right color.
 //            cell.retweetButton.imageView?.contentMode = UIViewContentMode.scaleAspectFit
-//            cell.retweetButton.setImage(retweetImage, for: .normal)
+//            cell.retweetButton.setImage(UIImage(named: "retweetgray"), for: .normal)
             cell.hoursLabel.text = tweet.dateToString()
-            print(cell.hoursLabel.text!)
             cell.tweetText.text = tweet.text
         }
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("tweets count: \(tweets?.count)")
         return tweets?.count ?? 0
     }
     
@@ -98,7 +103,6 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             newTweetsVC.name = User.currentUser?.screenname
             newTweetsVC.username = "@\((User.currentUser?.name!)!)"
         } else if segue.identifier == "detailTweetSegue" {
-            print("in hjere")
             let detailVC = segue.destination as! DetailTweetViewController
             if let index = tweetsTableView.indexPath(for: sender as! TweetCell) {
                 if let tweet = tweets?[index.row] {
@@ -112,11 +116,34 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     detailVC.tweetString = tweet.text
                 }
             }
+        } else if segue.identifier == "loadProfileSegue" {
+            print("loadprofile segue")
+            let destinationVC = segue.destination as! ProfileViewController
+            let sender = sender as! UITapGestureRecognizer
+            if let index = sender.view?.tag {
+                print("indexpath row selected on image is : \(index)")
+                if let tweet = tweets?[index] {
+                    print("tweet: \(tweet.user?.name)")
+                    destinationVC.profileImageURL = (tweet.user?.profileURL)!
+                    destinationVC.numFollowers = "\((tweet.user?.followers)!)"
+                    destinationVC.numFollowing = "\((tweet.user?.following)!)"
+                    destinationVC.numTweets = "\(tweet.retweetCount)"
+                    destinationVC.profileName = (tweet.user?.screenname)!
+                    destinationVC.twitterDesc = (tweet.user?.tagline)!
+                    destinationVC.twitterHandle = (tweet.user?.name)!
+                }
+            }
+            
         }
     }
+    
 
     @IBAction func newTweetTapped(_ sender: AnyObject) {
         self.performSegue(withIdentifier: "newTweetSegue", sender: self)
+    }
+    
+    @IBAction func imageTapped(_ sender: UITapGestureRecognizer) {
+        self.performSegue(withIdentifier: "loadProfileSegue", sender: sender)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

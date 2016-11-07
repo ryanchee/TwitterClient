@@ -14,6 +14,9 @@ class User: NSObject {
     var profileURL: URL?
     var tagline: String?
     var dictionary: NSDictionary
+    var followers: Int?
+    var following: Int?
+    var tweets: Int?
     
     init(dictionary: NSDictionary) {
         self.dictionary = dictionary
@@ -24,6 +27,9 @@ class User: NSObject {
             profileURL = URL(string: profileURLString)
         }
         tagline = dictionary["description"] as? String
+        following = dictionary["friends_count"] as? Int
+        followers = dictionary["followers_count"] as? Int
+        tweets = dictionary["statuses_count"] as? Int
     }
     
     static var _currentUser: User?

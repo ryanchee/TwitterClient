@@ -72,13 +72,83 @@ class TwitterClient: BDBOAuth1SessionManager {
             let tweets = Tweet.tweetsWithArray(dictionaries: dictionaries)
             success(tweets)
             for tweet in tweets {
-                print("\(tweet.text!)")
+//                print("\(tweet.text!)")
                // print("\(tweet.user)")
             }
         }) { (task: URLSessionDataTask?, error: Error) in
             print("error: \(error.localizedDescription)")
             failure(error)
         }
+    }
+    
+    func userTimeLine(success: @escaping ([Tweet])-> (), failure: @escaping (Error) -> ())  {
+
+        get("1.1/statuses/user_timeline.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            let dictionaries  = response as! [NSDictionary]
+            let tweets = Tweet.tweetsWithArray(dictionaries: dictionaries)
+            success(tweets)
+            print("get my own timeline was successful")
+            for tweet in tweets {
+//                print("\(tweet.text!)")
+                // print("\(tweet.user)")
+            }
+        }) { (task: URLSessionDataTask?, error: Error) in
+            print("error: \(error.localizedDescription)")
+            failure(error)
+        }
+    }
+        
+    
+    func mentions(success: @escaping ([Tweet])-> (), failure: @escaping (Error) -> ())  {
+        get("1.1/statuses/mentions_timeline.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            let dictionaries  = response as! [NSDictionary]
+            let tweets = Tweet.tweetsWithArray(dictionaries: dictionaries)
+            success(tweets)
+            for tweet in tweets {
+//                print("\(tweet.text!)")
+                // print("\(tweet.user)")
+            }
+
+        }) { (task: URLSessionDataTask?, error: Error) in
+            print("error: \(error.localizedDescription)")
+            failure(error)
+        }
+    }
+    
+    func getUserTimeline(screenName: String, success: @escaping ([Tweet])-> (), failure: @escaping (Error) -> ())  {
+        var params = Dictionary<String, Any>()
+        params["screen_name"] = screenName
+        
+//        get("1.1/statuses/user_timeline.json?screen_name=", parameters: params, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+//            let dictionaries  = response as! [NSDictionary]
+//            let tweets = Tweet.tweetsWithArray(dictionaries: dictionaries)
+//            success(tweets)
+//            print("get user timeline was successful")
+//            for tweet in tweets {
+//                print("\(tweet.text!)")
+//            }
+//        }) { (task: URLSessionDataTask?, error: Error) in
+//            print("error: \(error.localizedDescription)")
+//            failure(error)
+//        }
+        get("1.1/statuses/user_timeline.json", parameters: params, progress: { (progress: Progress) in
+            print("screenname is: \(screenName)")
+            print("--- progress in getting usertimeline")
+            }, success: { (dataTask: URLSessionDataTask, response: Any?) in
+                print("--- SUCCESS in getting user timeline")
+                let dictionaries  = response as! [NSDictionary]
+                let tweets = Tweet.tweetsWithArray(dictionaries: dictionaries)
+                print("get user timeline was successful")
+                for tweet in tweets {
+                    print("\(tweet.text!)")
+                }
+                success(tweets)
+        }) { (dataTask: URLSessionDataTask?, error: Error) in
+            print("--- FAIL in getting user timeline")
+            failure(error)
+        }
+
+        
     }
     
     func currentAccount(success: @escaping (User) -> (), failure: @escaping (Error) -> ()) {
