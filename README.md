@@ -45,7 +45,6 @@ something, how to extend your app in certain ways, etc):
   1. 
   2.
 
-
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
@@ -60,7 +59,6 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 Describe any challenges encountered while building the app.
 
     There were just a lot of small things I got stuck on. 
-
 
 ## License
 
